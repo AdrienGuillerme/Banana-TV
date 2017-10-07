@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets._2D;
 
 public class CeilingBladesScript : MonoBehaviour {
 	// NOTE: If no condition is given, use isActive, otherwhise, use
@@ -14,7 +15,7 @@ public class CeilingBladesScript : MonoBehaviour {
 	[SerializeField] public float retractDelay = 2f; // Seconds after an expand to start retracting
 	[SerializeField] public float expandDelay = 2f; // Seconds after a retract to start expanding
 	
-	// TODO: The animation time itself should be used!
+	// TODO / @Temporary: The animation time itself should be used!
 	[SerializeField] public float animationDuration = 2f;
 	[SerializeField] public float indulgenceDelay = 0.2f;
 
@@ -23,10 +24,16 @@ public class CeilingBladesScript : MonoBehaviour {
 	private float m_StopTime = 0f;
 	private bool m_Retracted = true;
 
+	private Collider2D m_Collider;
+
 	public void Awake() {
 		m_Rigidbody = GetComponent<Rigidbody2D>();
 		m_Renderer = GetComponent<SpriteRenderer>();
+		m_Collider = GetComponent<Collider2D>();
+		 
 		m_StopTime = offsetDelay;
+		
+		m_Collider.isTrigger = false;
 	}
 
 	public void Update() {
@@ -37,13 +44,17 @@ public class CeilingBladesScript : MonoBehaviour {
 
 	public void SetRetracted() {
 		m_Retracted = true;
-
+		m_Collider.isTrigger = false; 
+			
+		// TODO / @Temporary: Remove this once we have a proper animation.
 		m_Renderer.color = new Color(0f, 0f, 0f, 1f);
 	}
 
 	public void SetExpanded() {
 		m_Retracted = false;
+		m_Collider.isTrigger = true;
 
+		// TODO / @Temporary: Remove this once we have a proper animation.
 		m_Renderer.color = new Color(1f, 0f, 0f, 1f);
 	}
 
@@ -74,7 +85,7 @@ public class CeilingBladesScript : MonoBehaviour {
 		if (!isActive && !m_Retracted) {
 			Retract();
 		}
-		else if (m_StopTime == 0) {
+		else if (isActive && (m_StopTime == 0)) {
 			if (m_Retracted) {
 				Expand();
 			}
