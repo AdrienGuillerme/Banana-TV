@@ -55,11 +55,7 @@ public class CreateBoxPowerScript : MonoBehaviour {
 			caster.DisableMovement();
 
 			shadowBox = Instantiate(boxModel) as GameObject;
-			shadowBox.transform.SetParent(this.transform);
-			shadowBox.GetComponent<SpriteRenderer>().color = new Color(0f, 0.5f, 0f, 0.5f);
-			shadowBox.GetComponent<Rigidbody2D>().isKinematic = true;
-
-			// TODO: Disable collisions!
+			shadowBox.AddComponent<ShadowBoxScript>();
 
 			var position = new Vector3(0f, 0f, 0f);
 
@@ -69,22 +65,22 @@ public class CreateBoxPowerScript : MonoBehaviour {
 				position.x = 1f;
 			}
 			else {
-				position.x = 2f;
+				position.x = -2f;
 			}
 
-			Debug.Log(position);
-			
-			shadowBox.transform.localPosition = position;
+			shadowBox.transform.position = transform.position + position;
 
-			// TODO: Transfer movement to box
+			var shadowBoxScript = shadowBox.GetComponent<ShadowBoxScript>();
+			shadowBoxScript.LinkTo(caster.gameObject);
 		}
 		else if (isReleased) {
 			Reset();
 		}
 		else if (isHold) {
 			var validation = Input.GetButton(validationButtonName);
-
-			if (!validation) {
+			var shadowBoxScript = shadowBox.GetComponent<ShadowBoxScript>();
+			
+			if (!validation || !shadowBoxScript.isValid) {
 				return;
 			}
 
