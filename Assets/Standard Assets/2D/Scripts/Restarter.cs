@@ -6,12 +6,28 @@ namespace UnityStandardAssets._2D
 {
     public class Restarter : MonoBehaviour
     {
+		public bool enabled = true;
+		
+		public void ReloadScene() {
+			if (enabled) {
+				SceneManager.LoadScene(SceneManager.GetSceneAt(0).name);
+			}
+		}
+		
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.tag == "Player")
             {
-                SceneManager.LoadScene(SceneManager.GetSceneAt(0).name);
+				ReloadScene();
             }
-        }
+		}
+
+		private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.tag == "Player")
+            {
+				ReloadScene();
+            }
+		}
     }
 }

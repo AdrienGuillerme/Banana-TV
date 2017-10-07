@@ -24,16 +24,17 @@ public class CeilingBladesScript : MonoBehaviour {
 	private float m_StopTime = 0f;
 	private bool m_Retracted = true;
 
-	private Collider2D m_Collider;
-
+	private Restarter m_Restarter;
+	
 	public void Awake() {
 		m_Rigidbody = GetComponent<Rigidbody2D>();
 		m_Renderer = GetComponent<SpriteRenderer>();
-		m_Collider = GetComponent<Collider2D>();
+		m_Restarter = GetComponent<Restarter>();
 		 
 		m_StopTime = offsetDelay;
-		
-		m_Collider.isTrigger = false;
+		m_Restarter.enabled = false;
+
+		m_Renderer.color = new Color(1f, 0f, 0f, 1f);
 	}
 
 	public void Update() {
@@ -44,7 +45,7 @@ public class CeilingBladesScript : MonoBehaviour {
 
 	public void SetRetracted() {
 		m_Retracted = true;
-		m_Collider.isTrigger = false; 
+		m_Restarter.enabled = false;
 			
 		// TODO / @Temporary: Remove this once we have a proper animation.
 		m_Renderer.color = new Color(0f, 0f, 0f, 1f);
@@ -52,7 +53,7 @@ public class CeilingBladesScript : MonoBehaviour {
 
 	public void SetExpanded() {
 		m_Retracted = false;
-		m_Collider.isTrigger = true;
+		m_Restarter.enabled = true;
 
 		// TODO / @Temporary: Remove this once we have a proper animation.
 		m_Renderer.color = new Color(1f, 0f, 0f, 1f);

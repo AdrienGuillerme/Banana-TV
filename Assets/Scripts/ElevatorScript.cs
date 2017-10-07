@@ -22,7 +22,7 @@ public class ElevatorScript : MonoBehaviour {
 	private SpriteRenderer m_Renderer;
 	private bool direction = false;
 	private float stopTime = 0f;
-	
+
 	public void Awake() {
 		m_Rigidbody = GetComponent<Rigidbody2D>();
 		m_Renderer = GetComponent<SpriteRenderer>();
@@ -49,7 +49,7 @@ public class ElevatorScript : MonoBehaviour {
 		
 		Vector3 v = !direction ? fromActivePos : fromResPos;
 		v = transform.position + v.normalized * speed * Time.deltaTime;
-		
+
 		m_Rigidbody.MovePosition(v);
 	}
 
