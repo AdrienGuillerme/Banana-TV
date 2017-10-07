@@ -7,6 +7,8 @@ public class ElevatorScript : MonoBehaviour {
 	[SerializeField] public GameObject maxBound;
 	[SerializeField] public Vector2 anchor;
 
+	[SerializeField] public float offsetDelay; // Starting offset delay
+	
 	// NOTE: If no condition is given, use isActive, otherwhise, use
 	// the condition's Active method.
 	[SerializeField] public GameObject activationCondition;
@@ -24,6 +26,8 @@ public class ElevatorScript : MonoBehaviour {
 	public void Awake() {
 		m_Rigidbody = GetComponent<Rigidbody2D>();
 		m_Renderer = GetComponent<SpriteRenderer>();
+
+		stopTime = offsetDelay;
 	}
 
 	public Vector3 AbsoluteDim(Vector2 relativeDim) {

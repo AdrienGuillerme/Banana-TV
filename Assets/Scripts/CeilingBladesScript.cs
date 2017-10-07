@@ -7,6 +7,8 @@ public class CeilingBladesScript : MonoBehaviour {
 	// the condition's Active method.
 	[SerializeField] public GameObject activationCondition;
 
+	[SerializeField] public float offsetDelay; // Starting offset delay
+	
 	[SerializeField] public bool isActive = true;
 	[SerializeField] public float speed = 1f; // Animation speed
 	[SerializeField] public float retractDelay = 2f; // Seconds after an expand to start retracting
@@ -24,6 +26,7 @@ public class CeilingBladesScript : MonoBehaviour {
 	public void Awake() {
 		m_Rigidbody = GetComponent<Rigidbody2D>();
 		m_Renderer = GetComponent<SpriteRenderer>();
+		m_StopTime = offsetDelay;
 	}
 
 	public void Update() {
