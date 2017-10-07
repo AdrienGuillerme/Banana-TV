@@ -36,7 +36,6 @@ public class map : MonoBehaviour {
 
     private void Resume(int level) {
         player.transform.position = levelPositions[level];
-        player.transform.position = levelPositions[level];
         Time.timeScale = 1;
         isActive = false;
         this.gameObject.SetActive(isActive);
