@@ -1,31 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class FallinRocksTrapScript : MonoBehaviour {
-
+public class LavaSprite : MonoBehaviour
+{
     public GameObject DieMenu;
 
     void OnCollisionEnter2D(Collision2D coll)
     {
         if (coll.gameObject.tag == "Player")
         {
-            DieMenu.SetActive(true);
-
             Time.timeScale = 0;
+            DieMenu.SetActive(true);
         }
-
-        // Use this for initialization
+    
     }
-
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    // Use this for initialization
+    void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
 }

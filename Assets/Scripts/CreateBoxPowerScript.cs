@@ -33,6 +33,7 @@ public class CreateBoxPowerScript : MonoBehaviour {
 		}
 
 		ShowRadius(false);
+
 		caster.EnableMovement();
 	}
 
