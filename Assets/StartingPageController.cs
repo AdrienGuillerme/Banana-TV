@@ -40,7 +40,6 @@ public class StartingPageController : MonoBehaviour {
         _settingsIsShown = false;
         SettingsMenuGameObject.SetActive(_settingsIsShown);
         StartMenuGameObject.SetActive(!_settingsIsShown);
-        UnityEngine.Debug.Log(SoundVolumeControl.MusicSoundLevel + " ; " + SoundVolumeControl.FxSoundLevel + " ; " + SoundVolumeControl.AnchorManSoundLevel);
 
     }
 }
