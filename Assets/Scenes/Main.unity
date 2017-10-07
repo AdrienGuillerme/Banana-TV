@@ -202,6 +202,8 @@ MonoBehaviour:
   _caster: {fileID: 24348964}
   ProjectileModel: {fileID: 1291946386373216, guid: 6defb864c06f13b4299f726be0c4b298,
     type: 2}
+  HowStrong: 700
+  HowLong: 1
 --- !u!114 &24348964 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 11400000, guid: 87a2357765801c34292d6718d8b4d770,
