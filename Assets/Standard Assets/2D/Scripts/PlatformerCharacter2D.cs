@@ -48,6 +48,9 @@ namespace UnityStandardAssets._2D
             m_Anim.SetFloat("vSpeed", m_Rigidbody2D.velocity.y);
         }
 
+		public bool FacingRight() {
+			return m_FacingRight;
+		}
 
         public void Move(float move, bool crouch, bool jump)
         {

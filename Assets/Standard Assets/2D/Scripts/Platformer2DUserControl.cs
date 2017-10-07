@@ -7,8 +7,9 @@ namespace UnityStandardAssets._2D
     [RequireComponent(typeof (PlatformerCharacter2D))]
     public class Platformer2DUserControl : MonoBehaviour
     {
-        private PlatformerCharacter2D m_Character;
+        public PlatformerCharacter2D m_Character;
         private bool m_Jump;
+		private bool m_CanMove = true;
 
 
         private void Awake()
@@ -29,6 +30,9 @@ namespace UnityStandardAssets._2D
 
         private void FixedUpdate()
         {
+			if (!m_CanMove)
+				return;
+			
             // Read the inputs.
             bool crouch = Input.GetKey(KeyCode.LeftControl);
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
@@ -36,5 +40,13 @@ namespace UnityStandardAssets._2D
             m_Character.Move(h, crouch, m_Jump);
             m_Jump = false;
         }
+		
+		public void DisableMovement() {
+			m_CanMove = false;
+		}
+
+		public void EnableMovement() {
+			m_CanMove = true;
+		}
     }
 }
