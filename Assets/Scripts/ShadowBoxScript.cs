@@ -57,9 +57,10 @@ public class ShadowBoxScript : MonoBehaviour {
 			}
 
 			RaycastHit2D[] hits = new RaycastHit2D[2];
+			// Ignore invisible elements
 			Physics2D.RaycastNonAlloc(new Vector2(endPos.x, endPos.y),
 									  -new Vector2(normalizedJoint.x, normalizedJoint.y),
-									  hits, joint.magnitude);
+									  hits, joint.magnitude, LayerMask.NameToLayer("TransparentFX"));
 
 			// hit[0] is always self
 			RaycastHit2D hit = hits[1];
