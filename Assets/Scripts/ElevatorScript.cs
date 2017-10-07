@@ -7,6 +7,9 @@ public class ElevatorScript : MonoBehaviour {
 	[SerializeField] public GameObject maxBound;
 	[SerializeField] public Vector2 anchor;
 
+	// NOTE: If no condition is given, use isActive, otherwhise, use
+	// the condition's Active method.
+	[SerializeField] public GameObject activationCondition;
 	
 	[SerializeField] public bool isActive = true;
 	[SerializeField] public float speed = 1f;
@@ -63,6 +66,12 @@ public class ElevatorScript : MonoBehaviour {
 		}
 	}
 
+	public void Update() {
+		if (activationCondition != null) {
+			isActive = activationCondition.GetComponent<ActivableElementScript>().Active();
+		}
+	}
+	
 	public void FixedUpdate() {
 		if (stopTime > 0) {
 			stopTime -= Time.deltaTime;
@@ -78,5 +87,4 @@ public class ElevatorScript : MonoBehaviour {
 
 		MoveElevator();
 	}
-	
 }
