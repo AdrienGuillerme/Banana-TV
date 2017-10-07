@@ -24,7 +24,7 @@ public class StartingPageController : MonoBehaviour {
 
     public void LoadMainScene()
     {
-        SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("Main", LoadSceneMode.Single);
 
     }
     public void LaunchSettings()
