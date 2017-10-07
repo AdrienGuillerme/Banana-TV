@@ -30,12 +30,14 @@ namespace UnityStandardAssets._2D
 
         private void FixedUpdate()
         {
-			if (!m_CanMove)
-				return;
-			
             // Read the inputs.
             bool crouch = Input.GetKey(KeyCode.LeftControl);
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
+
+			h *= m_CanMove ? 1f : 0f;
+			crouch = crouch && m_CanMove;
+			m_Jump = m_Jump && m_CanMove;
+			
             // Pass all parameters to the character control script.
             m_Character.Move(h, crouch, m_Jump);
             m_Jump = false;
