@@ -31,10 +31,7 @@ public class map : MonoBehaviour {
         Time.timeScale = 0;
         isActive = true;
         this.gameObject.SetActive(isActive);
-        if (door == 1)
-        {
-            selectedLevel = 1;
-        }
+        selectedLevel = door;
     }
 
     private void Resume(int level) {
