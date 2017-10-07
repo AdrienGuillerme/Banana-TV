@@ -20,7 +20,7 @@ public class DoorBehaviour : MonoBehaviour {
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            Map.showMap(door);
+            Map.showMap(door, collision.gameObject);
         }
     }
 }

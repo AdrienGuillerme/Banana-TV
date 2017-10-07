@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class map : MonoBehaviour {
-    private Vector3[] levelPositions = { new Vector3 (19.61f, 9.58f, 0), new Vector3(22.61f, 9.58f, 0) };
-    public GameObject player;
+    private Vector2[] levelPositions = { new Vector2 (19.61f, 9.58f), new Vector2 (22.61f, 9.58f) };
     private bool isActive = false;
     private int selectedLevel = 0;
+    private GameObject player;
 
 	// Use this for initialization
 	void Start () {
@@ -25,8 +25,9 @@ public class map : MonoBehaviour {
 		
 	}
 
-    public void showMap(int door)
+    public void showMap(int door, GameObject p)
     {
+        player = p;
         Time.timeScale = 0;
         isActive = true;
         this.gameObject.SetActive(isActive);
@@ -37,6 +38,7 @@ public class map : MonoBehaviour {
     }
 
     private void Resume(int level) {
+        player.transform.position = levelPositions[level];
         player.transform.position = levelPositions[level];
         Time.timeScale = 1;
         isActive = false;
