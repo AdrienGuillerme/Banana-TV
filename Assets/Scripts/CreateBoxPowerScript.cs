@@ -23,7 +23,6 @@ public class CreateBoxPowerScript : MonoBehaviour {
 			Destroy(shadowBox);
 			shadowBox = null;
 		}
-
 		caster.EnableMovement();
 	}
 
