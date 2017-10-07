@@ -39,7 +39,7 @@ public class CreateBoxPowerScript : MonoBehaviour {
 
 
 	void SetBoxGravity(bool gravity) {
-		persistentBox.GetComponent<Rigidbody2D>().isKinematic = !gravity;
+		persistentBox.GetComponent<Rigidbody2D>().gravityScale = gravity ? 1 : 0;
 	}
 	
 	void MakeBoxFall() {
