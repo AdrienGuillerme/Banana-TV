@@ -12,33 +12,22 @@ public class ShadowBoxScript : MonoBehaviour {
 	
 	private Rigidbody2D m_Rigidbody2D;
 	private GameObject m_LinkedTarget;
+	private SpriteRenderer m_Renderer;
 
 	public bool isValid = true;
 
     private void SetTint(Color tint) {
-		GetComponent<SpriteRenderer>().color = tint;
+		m_Renderer.color = tint;
 	}
 
 	public void Awake() {
-		SetTint(defaultTint);
-
+		m_Renderer = GetComponent<SpriteRenderer>();
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();
+		
+		SetTint(defaultTint);
 		m_Rigidbody2D.isKinematic = true;
-		
-		GetComponent<Collider2D>().isTrigger = true;
+		GetComponent<Collider2D>().isTrigger = true; 
 	}
-
-	// public void OnTriggerEnter2D() {
-	// 	SetTint(invalidTint);
-
-	// 	isValid = false;
-	// }
-
-	// public void OnTriggerExit() {
-	// 	SetTint(defaultTint);
-		
-	// 	isValid = true;
-	// }
 
 	public void LinkTo(GameObject obj) {
 		m_LinkedTarget = obj;
@@ -51,14 +40,38 @@ public class ShadowBoxScript : MonoBehaviour {
 		m_Rigidbody2D.velocity = new Vector2(h * m_MaxSpeed, v * m_MaxSpeed);
 	}
 
+	public Vector3 GetRelativeCenter() {
+		return m_Renderer.bounds.center - transform.position;
+	}
+
 	public void Update() {
 		if (m_LinkedTarget) {
-			// TODO: Make it relative to the center of m_LinkedTarget
+			Vector3 endPos = m_Renderer.bounds.center;
 			Vector3 startPos = m_LinkedTarget.transform.position;
-			Vector3 joint = (transform.position - startPos);
+			Vector3 joint = (endPos - startPos);
+			Vector3 normalizedJoint = joint.normalized;
 
 			if (joint.magnitude > m_MaxDistance) {
-				transform.position = startPos + joint.normalized * m_MaxDistance;
+				joint = normalizedJoint * m_MaxDistance;
+				transform.position = startPos + joint - GetRelativeCenter();
+			}
+
+			RaycastHit2D[] hits = new RaycastHit2D[2];
+			Physics2D.RaycastNonAlloc(new Vector2(endPos.x, endPos.y),
+									  -new Vector2(normalizedJoint.x, normalizedJoint.y),
+									  hits, joint.magnitude);
+
+			// hit[0] is always self
+			RaycastHit2D hit = hits[1];
+
+			if (hit.collider &&
+				(hit.collider.tag != m_LinkedTarget.tag)) {
+				SetTint(invalidTint);
+				isValid = false;
+			}
+			else {
+				SetTint(defaultTint);
+				isValid = true;
 			}
 		}
 	}
