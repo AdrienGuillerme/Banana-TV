@@ -8,8 +8,8 @@ public class ShadowBoxScript : MonoBehaviour {
 	[SerializeField] private Color invalidTint = new Color(0.5f, 0f, 0f, 0.5f);
 
 	[SerializeField] private float m_MaxSpeed = 10f;
-	[SerializeField] private float m_MaxDistance = 4f;
-	
+
+	private float m_MaxDistance;
 	private Rigidbody2D m_Rigidbody2D;
 	private GameObject m_LinkedTarget;
 	private SpriteRenderer m_Renderer;
@@ -29,8 +29,9 @@ public class ShadowBoxScript : MonoBehaviour {
 		GetComponent<Collider2D>().isTrigger = true; 
 	}
 
-	public void LinkTo(GameObject obj) {
+	public void LinkTo(GameObject obj, float maxDistance) {
 		m_LinkedTarget = obj;
+		m_MaxDistance = maxDistance;
 	}
 
 	public void FixedUpdate() {
