@@ -7,6 +7,7 @@ public class map : MonoBehaviour {
     private bool isActive = false;
     private int selectedLevel = 0;
     private GameObject player;
+    private bool[] levelDiscovery = { true, false };
 
 	// Use this for initialization
 	void Start () {
