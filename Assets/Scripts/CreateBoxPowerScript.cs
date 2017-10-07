@@ -10,11 +10,12 @@ public class CreateBoxPowerScript : MonoBehaviour {
 	[SerializeField] private Platformer2DUserControl caster;
 
 	[SerializeField] private GameObject boxModel;
+	[SerializeField] private GameObject particlesModel;
 
 	private float timeLeftBeforeReset = 0f;
 	private bool oldButtonState = false;
 	private GameObject shadowBox = null;
-	private GameObject persistenBox = null;
+	private GameObject persistentBox = null;
 
 	void Reset() {
 		oldButtonState = false;
@@ -25,6 +26,17 @@ public class CreateBoxPowerScript : MonoBehaviour {
 		}
 
 		caster.EnableMovement();
+	}
+
+
+	void SetBoxGravity(bool gravity) {
+		persistentBox.GetComponent<Rigidbody2D>().isKinematic = !gravity;
+	}
+	
+	void MakeBoxFall() {
+		if (persistentBox) {
+			SetBoxGravity(true);
+		}
 	}
 
 	// Update is called once per frame
@@ -59,7 +71,7 @@ public class CreateBoxPowerScript : MonoBehaviour {
 
 			var position = new Vector3(0f, 0f, 0f);
 
-			var facingRight = caster.GetComponent<PlatformerCharacter2D>().FacingRight();
+			var facingRight = caster.m_Character.FacingRight();
 			
 			if (facingRight) {
 				position.x = 1f;
@@ -84,13 +96,21 @@ public class CreateBoxPowerScript : MonoBehaviour {
 				return;
 			}
 
-			if (persistenBox) {
-				Destroy(persistenBox);
+			if (persistentBox) {
+				Destroy(persistentBox);
 			}
+
+			var particles = Instantiate(particlesModel, shadowBox.transform.position + shadowBoxScript.GetRelativeCenter(), Quaternion.identity);
+			var duration = particles.GetComponent<ParticleSystem>().main.duration;
 			
-			persistenBox = Instantiate(boxModel,
+			Destroy(particles, duration);
+
+			persistentBox = Instantiate(boxModel,
 									   shadowBox.transform.position,
 									   Quaternion.identity) as GameObject;
+
+			SetBoxGravity(false);
+			Invoke("MakeBoxFall", 0.75f);
 			
 			Reset();
 
