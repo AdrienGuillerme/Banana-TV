@@ -11,7 +11,6 @@ namespace UnityStandardAssets._2D
         private bool m_Jump;
 		private bool m_CanMove = true;
 
-        
         private void Awake()
         {
             m_Character = GetComponent<PlatformerCharacter2D>();
@@ -27,7 +26,6 @@ namespace UnityStandardAssets._2D
             }
         }
 
-
         private void FixedUpdate()
         {
             // Read the inputs.
@@ -40,8 +38,20 @@ namespace UnityStandardAssets._2D
 			
             // Pass all parameters to the character control script.
             m_Character.Move(h, crouch, m_Jump);
-            m_Jump = false;
+            m_Jump = false;		
         }
+
+		public void OnTriggerStay2D(Collider2D collider) {
+			if (collider.gameObject.layer == LayerMask.NameToLayer("Interactive_Element")) {
+				bool interacting = CrossPlatformInputManager.GetButton("Submit");
+
+				// FIXME: Should probably use another boolean value
+				// (m_CanInteract or whatever).
+				if (interacting && m_CanMove) {
+					collider.gameObject.GetComponent<InteractiveElementScript>().OnPlayerInteract(gameObject); 
+				}
+			}
+		}
 		
 		public void DisableMovement() {
 			m_CanMove = false;
