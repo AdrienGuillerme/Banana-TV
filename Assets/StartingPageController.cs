@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Debug = System.Diagnostics.Debug;
 
 public class StartingPageController : MonoBehaviour {
 
     public GameObject SettingsMenuGameObject; // Assign in inspector
-    public GameObject StartMenuGameObject; // Assign in inspector
+    public GameObject StartMenuGameObject; // Assign in inspector   
     private bool _settingsIsShown = false;
 
 
@@ -20,6 +22,11 @@ public class StartingPageController : MonoBehaviour {
 		
 	}
 
+    public void LoadMainScene()
+    {
+        SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
+
+    }
     public void LaunchSettings()
     {
         _settingsIsShown = true;
@@ -33,6 +40,7 @@ public class StartingPageController : MonoBehaviour {
         _settingsIsShown = false;
         SettingsMenuGameObject.SetActive(_settingsIsShown);
         StartMenuGameObject.SetActive(!_settingsIsShown);
+        UnityEngine.Debug.Log(SoundVolumeControl.MusicSoundLevel + " ; " + SoundVolumeControl.FxSoundLevel + " ; " + SoundVolumeControl.AnchorManSoundLevel);
 
     }
 }
