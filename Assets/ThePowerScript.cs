@@ -11,6 +11,7 @@ public class ThePowerScript : MonoBehaviour {
     [SerializeField] private Platformer2DUserControl _caster;
 	[SerializeField] private float _maxHoldDuration = 3f;
 	[SerializeField] private float _holdModifier = 0.4f;
+	[SerializeField] private float _timeForShootingAnimation = 12f;
 
     private float _timeLeftBeforeReset = 0.5f;
 	private float _holdTimestamp = 0f;
@@ -18,10 +19,13 @@ public class ThePowerScript : MonoBehaviour {
     private float _timeStamp;
     public int HowStrong;
     public float HowLong;
-	
+
+	//var for the animation of the bullet
+	private Animator m_Anim;
+
     // Use this for initialization
     void Start () {
-		
+		m_Anim = GetComponent<Animator>();
 	}
 
     public void FireBullet()    
@@ -65,17 +69,25 @@ public class ThePowerScript : MonoBehaviour {
         rigidBody.AddForce(direction*(totalForce + _caster.GetComponent<Rigidbody2D>().velocity.magnitude),ForceMode2D.Force);
 
 		_holdTimestamp = 0f;
+		m_Anim.SetBool("Fire", false);
     }
 	
     // Update is called once per frame      
     void Update () {
+		if (m_Anim.GetBool("Fire") ) {
+			if (_timeForShootingAnimation <= Time.time) {
+				m_Anim.SetBool ("Fire", false);
+			}
+		}
         if (Input.GetButtonDown(_buttonName))
         {
 			_holdTimestamp = Time.time;
         }
 		else if (Input.GetButtonUp(_buttonName)) {
-			if(_timeStamp <= Time.time)
-				FireBullet();
+			if (_timeStamp <= Time.time) {
+				FireBullet ();
+				m_Anim.SetBool("Fire", true);
+			}
 		}
 	}
 
