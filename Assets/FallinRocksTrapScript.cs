@@ -8,10 +8,9 @@ public class FallinRocksTrapScript : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.tag == "Player")
+        if (coll.gameObject.tag == "Player" && coll.otherCollider.gameObject.GetComponent<Rigidbody2D>().velocity.magnitude >= 50)
         {
             DieMenu.SetActive(true);
-
             Time.timeScale = 0;
         }
 

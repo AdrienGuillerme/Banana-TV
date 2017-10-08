@@ -6,6 +6,7 @@ TagManager:
   tags:
   - lazer
   - ray
+  - Ennemy
   layers:
   - Default
   - TransparentFX

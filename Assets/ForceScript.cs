@@ -1,6 +1,7 @@
 ﻿    using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+    using Assets;
+    using UnityEngine;
 
 public class ForceScript : MonoBehaviour
 {
@@ -14,8 +15,8 @@ public class ForceScript : MonoBehaviour
         {
             _gravityOfObjectWhoHaveBeenCollied = coll.gameObject.GetComponent<Rigidbody2D>().gravityScale;
             _rbCollidedObject = coll.gameObject.GetComponent<Rigidbody2D>();
-            coll.gameObject.GetComponent<Rigidbody2D>().gravityScale = 2.5f;
-            Invoke("SetGravityBack", 0.5f);
+            coll.gameObject.GetComponent<Rigidbody2D>().gravityScale = SettingsConstants.GravityImpact;
+            Invoke("SetGravityBack", SettingsConstants.GravityImpact);
         }
        
 

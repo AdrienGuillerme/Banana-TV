@@ -14,9 +14,14 @@ namespace UnityStandardAssets._2D
             if (enabled && other.tag == "Player")
             {
                 Time.timeScale = 0;
+               
                 DieMenu.SetActive(true);
             }
-		}
+            if (other.gameObject.tag == "Ennemy")
+            {
+                Destroy(other.gameObject);
+            }       
+        }
 
 		private void OnCollisionEnter2D(Collision2D other)
         {
@@ -25,6 +30,11 @@ namespace UnityStandardAssets._2D
                 Time.timeScale = 0;
                 DieMenu.SetActive(true);
             }
-		}
+
+            if (other.gameObject.tag == "Ennemy")
+            {
+               Destroy(other.gameObject);
+            }
+        }
     }
 }

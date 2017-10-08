@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets;
 using UnityEngine;
 using UnityStandardAssets._2D;
 
@@ -19,13 +20,17 @@ public class ThePowerScript : MonoBehaviour {
     private float _timeStamp;
     public int HowStrong;
     public float HowLong;
+    public GameObject DieView;
+
 
 	//var for the animation of the bullet
 	private Animator m_Anim;
 	private float _fireAnimationTime = 12f;
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
+        SettingsConstants.DieMenu = DieView;
 		m_Anim = GetComponent<Animator>();
 	}
 
