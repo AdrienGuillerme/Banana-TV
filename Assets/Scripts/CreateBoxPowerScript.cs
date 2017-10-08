@@ -24,6 +24,9 @@ public class CreateBoxPowerScript : MonoBehaviour {
 	private GameObject persistentBox = null;
 	private GameObject radiusIndication = null;
 
+	//var for the animation of the bullet
+	private Animator m_Anim;
+
 	void Reset() {
 		oldButtonState = false;
 
@@ -35,6 +38,8 @@ public class CreateBoxPowerScript : MonoBehaviour {
 		ShowRadius(false);
 
 		caster.EnableMovement();
+
+		m_Anim.SetBool("CreateBox", false);
 	}
 
 
@@ -63,10 +68,13 @@ public class CreateBoxPowerScript : MonoBehaviour {
 		light.color = radiusColor;
 
 		ShowRadius(false);
+
+		m_Anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
 		if (timeLeftBeforeReset > 0)
 			timeLeftBeforeReset -= Time.deltaTime;
 
@@ -90,6 +98,9 @@ public class CreateBoxPowerScript : MonoBehaviour {
 		}
 
 		if (isPressed) {
+
+			m_Anim.SetBool("CreateBox", true);
+
 			caster.DisableMovement();
 			ShowRadius(true);
 
