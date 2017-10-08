@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212584596288529636}
   - component: {fileID: 61573185039284950}
   - component: {fileID: 50698373934323818}
+  - component: {fileID: 114733286779321666}
   m_Layer: 0
   m_Name: CratePink
   m_TagString: Untagged
@@ -87,6 +88,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.28, y: 1.21}
   m_EdgeRadius: 0
+--- !u!114 &114733286779321666
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1259761321199096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ba84055b8968774c8ecc9d52b53db5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb2d: {fileID: 50698373934323818}
+  _buttonName: Fire3
+  timeScale: 0.05
+  slowDuration: 2
+  slowCooldown: 2
+  smoothTime: 0.5
+  velocity: 0
+  maxVelocity: 10
 --- !u!212 &212584596288529636
 SpriteRenderer:
   m_ObjectHideFlags: 1
