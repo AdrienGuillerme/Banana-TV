@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class SlowMotion : MonoBehaviour {
 
     public Rigidbody2D rb2d;
+	public string _buttonName;
 
     // Slow motion
     public float timeScale = 0.1f;
@@ -14,11 +16,11 @@ public class SlowMotion : MonoBehaviour {
 
     // Duration of the slow
     float slowTimeStamp;
-    float slowDuration = 3.0f;
+	public float slowDuration = 2.0f;
 
     // Cooldown of the slow
     float slowCooldownTimeStamp = -5.0f;
-    float slowCooldown = 2.0f;
+    public float slowCooldown = 2.0f;
     
 
     // Smooth damp
@@ -41,8 +43,9 @@ public class SlowMotion : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if (Input.GetKeyUp(KeyCode.W) &&
-            slowMoBool &&
+		var isPressed = CrossPlatformInputManager.GetButtonDown(_buttonName);
+		
+        if (isPressed && slowMoBool &&
             (Time.time - slowCooldownTimeStamp > slowCooldown))
         {
             Debug.Log("alo");
@@ -50,13 +53,12 @@ public class SlowMotion : MonoBehaviour {
             slowTimeStamp = Time.time;
         }
         
-        else if (!slowMoBool && (Input.GetKey(KeyCode.W) || (Time.time - slowTimeStamp > slowDuration)))
+        else if (!slowMoBool && (isPressed || (Time.time - slowTimeStamp > slowDuration)))
         {
             Debug.Log(Time.time - slowTimeStamp);
             StopSlowMo();
             slowCooldownTimeStamp = Time.time;
         }
-        
     }
 
     void SlowMo()
