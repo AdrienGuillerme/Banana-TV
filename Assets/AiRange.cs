@@ -13,6 +13,8 @@ public class AiRange : MonoBehaviour {
     public float rotationSpeed = 3f;
     public float detectionRange = 10;
     public int Range;
+	public AudioSource audio;
+
     private float _cooldown = 0.5f;
     private float _timeStamp;
     public GameObject ProjectileModel;
@@ -69,6 +71,8 @@ public class AiRange : MonoBehaviour {
 			enemyTransform.localScale = temp;
 		} else if (_timeStamp <= Time.time) {
 			m_Anim.SetBool ("attack", true);
+			audio.Play();
+
 			_timeStamp = Time.time + _cooldown;
 
 			Vector2 myPos = new Vector2 (transform.position.x, transform.position.y);

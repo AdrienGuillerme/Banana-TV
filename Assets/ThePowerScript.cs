@@ -21,6 +21,7 @@ public class ThePowerScript : MonoBehaviour {
     public int HowStrong;
     public float HowLong;
     public GameObject DieView;
+	public AudioSource powerSound;
 
 
 	//var for the animation of the bullet
@@ -89,6 +90,7 @@ public class ThePowerScript : MonoBehaviour {
 		else if (Input.GetButtonUp(_buttonName)) {
 			if (_timeStamp <= Time.time) {
 				m_Anim.SetBool("Fire", true);
+				powerSound.Play ();
 				FireBullet ();
 			}
 		}

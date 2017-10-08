@@ -26,6 +26,8 @@ public class CreateBoxPowerScript : MonoBehaviour {
 
 	//var for the animation of the bullet
 	private Animator m_Anim;
+	public AudioSource createBoxSound;
+	public AudioSource boxCreatedSound;
 
 	void Reset() {
 		oldButtonState = false;
@@ -39,6 +41,7 @@ public class CreateBoxPowerScript : MonoBehaviour {
 
 		caster.EnableMovement();
 
+		createBoxSound.Stop(); 
 		m_Anim.SetBool("CreateBox", false);
 	}
 
@@ -100,6 +103,7 @@ public class CreateBoxPowerScript : MonoBehaviour {
 		if (isPressed) {
 
 			m_Anim.SetBool("CreateBox", true);
+			createBoxSound.Play (); 
 
 			caster.DisableMovement();
 			ShowRadius(true);
@@ -123,6 +127,7 @@ public class CreateBoxPowerScript : MonoBehaviour {
 
 			var shadowBoxScript = shadowBox.GetComponent<ShadowBoxScript>();
 			shadowBoxScript.LinkTo(caster.gameObject, m_MaxDistance);
+			
 		}
 		else if (isReleased) {
 			Reset();
@@ -150,7 +155,7 @@ public class CreateBoxPowerScript : MonoBehaviour {
 
 			SetBoxGravity(false);
 			Invoke("MakeBoxFall", 0.75f);
-			
+			boxCreatedSound.Play();
 			Reset();
 
 			timeLeftBeforeReset = cooldown;
