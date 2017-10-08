@@ -5,59 +5,68 @@ using System;
 using UnityEngine.SceneManagement;
 
 
+// IMPORTANT: First child of this GameObject _must_ be the sprite to
+// be displayed.
 public class FireLaser : MonoBehaviour
 {
-    public float randomCoeff = 2.5f; // coeff pour que ça soit cohérent 
-    public int orientation = 1; //1 pour droite, -1 pour gauche
-    //public GameObject player;
-    private Vector3 fwd;
-    private float rayLen = 100f;
-    private Transform ray;
-    private RaycastHit2D[] hit = new RaycastHit2D[3];
-    private RaycastHit2D baseHit;
-    private RaycastHit2D lastHit;
-    private ContactFilter2D filter;
-    private Vector3 offsetOrigin = new Vector3(0, 0.15f, 0);
+	public float length;
+	public float maxLength = 100f;
+	public float width = 1.0f;
+	public LayerMask layerMask;
 
-    /*
-    public Transform rayTemplate = null;
-    public bool onContact = false;
-    */
+	private GameObject collider;
+
+	private float defaultWidth;
 
     // Use this for initialization
     void Start()
     {
-        fwd = transform.TransformDirection(this.transform.right * orientation); //à changer en fonction de l'orientation du sprite définitif
-        ray = transform.GetChild(0);
-        baseHit = Physics2D.Raycast(transform.position + offsetOrigin, fwd, 20.0f);
-        lastHit = baseHit;
+		Vector3 eulerAngles = transform.GetChild(0).eulerAngles;
+		transform.GetChild(0).eulerAngles = Vector3.zero;
+		
+		defaultWidth = transform.GetChild(0).GetComponent<SpriteRenderer>().bounds.size.x;
+		
+		transform.GetChild(0).eulerAngles = eulerAngles;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //mettre à jour la distance du laser 
-        filter.NoFilter();
-        Physics2D.Raycast((Vector2)(transform.position + offsetOrigin), (Vector2)fwd, filter, hit, 100.0f);
-        
-        if (hit[1] && hit[1].point != baseHit.point && hit[1].point != lastHit.point)
-        {
-            rayLen = this.transform.position.x - hit[1].point.x;
-            lastHit = hit[1];
-        }
-        else if (hit[2] && hit[2].point != baseHit.point && hit[2].point != lastHit.point && hit[1].point != lastHit.point)
-        {
-            rayLen = this.transform.position.x - hit[2].point.x;
-            lastHit = hit[2];
-        }
-        ray.localScale = new Vector3(ray.localScale.x, rayLen * randomCoeff, ray.localScale.z);
+		RaycastHit2D hit;
+		
+		// TODO: Center position
+		Vector2 position = new Vector2(transform.position.x, transform.position.y);
+		float angle = (transform.eulerAngles.z) * Mathf.Deg2Rad;
+		Vector2 direction = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
-        //tuer le joueur
-        if (lastHit.transform.gameObject.CompareTag("Player"))
-        {
-            SceneManager.LoadScene(SceneManager.GetSceneAt(0).name);
-        }
+		if (length > 0) {
+			hit = Physics2D.Raycast(position, direction, length, layerMask.value);
+		}
+		else {
+			hit =  Physics2D.Raycast(position, direction, Mathf.Infinity, layerMask.value);
+		}
+		
+		float actualLength;
 
-        Array.Clear(hit, 0, 3);
+		if (hit.collider) {
+			actualLength = Vector2.Distance(hit.point, position);
+
+			collider = hit.collider.gameObject;
+		}
+		else {
+			actualLength = length;
+			
+			if (actualLength == 0) {
+				actualLength = maxLength;
+			}
+
+			collider = null;
+		}
+
+		Vector3 scale = transform.localScale;
+		scale.x = actualLength / defaultWidth;
+		scale.y = width;
+		
+		transform.localScale = scale;
     }
 }

@@ -106,6 +106,7 @@ public class CreateBoxPowerScript : MonoBehaviour {
 
 			shadowBox = Instantiate(boxModel) as GameObject;
 			shadowBox.AddComponent<ShadowBoxScript>();
+			shadowBox.layer = LayerMask.NameToLayer("TransparentFX");
 
 			var position = new Vector3(0f, 0f, 0f);
 
