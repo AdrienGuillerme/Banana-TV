@@ -1,4 +1,5 @@
-﻿    using System.Collections;
+﻿    using System;
+    using System.Collections;
 using System.Collections.Generic;
     using Assets;
     using UnityEngine;
@@ -29,7 +30,14 @@ public class ForceScript : MonoBehaviour
     }
      void SetGravityBack()
      {
-         _rbCollidedObject.gravityScale = 1;
+         try
+         {
+             _rbCollidedObject.gravityScale = 1;
+
+        }
+        catch (Exception e)
+         {
+         }
      }
 
     // Use this for initialization

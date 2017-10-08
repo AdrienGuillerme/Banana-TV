@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 namespace Assets
 {
-    public class DieScreen : MonoBehaviour {
+    public class DieScreen : MonoBehaviour {    
 
         public void Retry()
         {

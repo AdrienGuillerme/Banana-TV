@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +13,7 @@ public class LavaSprite : MonoBehaviour
         if (coll.gameObject.tag == "Player")
         {
             Time.timeScale = 0;
-            DieMenu.SetActive(true);
+            SettingsConstants.DieMenu.SetActive(true);
         }
     
     }
