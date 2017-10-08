@@ -22,9 +22,9 @@ public class StartingPageController : MonoBehaviour {
 		
 	}
 
-    public void LoadMainScene()
+    public void LoadIntroScene()
     {
-        SceneManager.LoadScene("Main", LoadSceneMode.Single);
+        SceneManager.LoadScene("Intro", LoadSceneMode.Single);
 
     }
     public void LaunchSettings()
