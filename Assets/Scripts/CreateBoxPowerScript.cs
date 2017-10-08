@@ -9,12 +9,23 @@ public class CreateBoxPowerScript : MonoBehaviour {
 	[SerializeField] private float cooldown = 1f;
 	[SerializeField] private Platformer2DUserControl caster;
 
+	[SerializeField] private float m_MaxDistance = 4f;
+
 	[SerializeField] private GameObject boxModel;
+	[SerializeField] private GameObject particlesModel;
+	
+	[SerializeField] private GameObject radiusModel;
+	[SerializeField] private Color radiusColor = new Color(0f, 0.8f, 0f, 1f);
 
 	private float timeLeftBeforeReset = 0f;
 	private bool oldButtonState = false;
+	
 	private GameObject shadowBox = null;
-	private GameObject persistenBox = null;
+	private GameObject persistentBox = null;
+	private GameObject radiusIndication = null;
+
+	//var for the animation of the bullet
+	private Animator m_Anim;
 
 	void Reset() {
 		oldButtonState = false;
@@ -24,11 +35,46 @@ public class CreateBoxPowerScript : MonoBehaviour {
 			shadowBox = null;
 		}
 
+		ShowRadius(false);
+
 		caster.EnableMovement();
+
+		m_Anim.SetBool("CreateBox", false);
 	}
 
+
+	void SetBoxGravity(bool gravity) {
+		persistentBox.GetComponent<Rigidbody2D>().gravityScale = gravity ? 1 : 0;
+	}
+	
+	void MakeBoxFall() {
+		if (persistentBox) {
+			SetBoxGravity(true);
+		}
+	}
+
+	void ShowRadius(bool show) {
+		radiusIndication.GetComponent<Light>().enabled = show;
+	}
+
+	void Start() {
+		radiusIndication = Instantiate(radiusModel) as GameObject;
+		radiusIndication.transform.SetParent(transform);
+		radiusIndication.transform.localPosition = new Vector3(0f, 0f, 0f);
+		
+		var light = radiusIndication.GetComponent<Light>();
+		light.range = m_MaxDistance * 2.5f;
+		light.intensity = 0.8f;
+		light.color = radiusColor;
+
+		ShowRadius(false);
+
+		m_Anim = GetComponent<Animator>();
+	}
+	
 	// Update is called once per frame
 	void Update () {
+
 		if (timeLeftBeforeReset > 0)
 			timeLeftBeforeReset -= Time.deltaTime;
 
@@ -52,49 +98,58 @@ public class CreateBoxPowerScript : MonoBehaviour {
 		}
 
 		if (isPressed) {
+
+			m_Anim.SetBool("CreateBox", true);
+
 			caster.DisableMovement();
+			ShowRadius(true);
 
 			shadowBox = Instantiate(boxModel) as GameObject;
-			shadowBox.transform.SetParent(this.transform);
-			shadowBox.GetComponent<SpriteRenderer>().color = new Color(0f, 0.5f, 0f, 0.5f);
-			shadowBox.GetComponent<Rigidbody2D>().isKinematic = true;
-
-			// TODO: Disable collisions!
+			shadowBox.AddComponent<ShadowBoxScript>();
+			shadowBox.layer = LayerMask.NameToLayer("TransparentFX");
 
 			var position = new Vector3(0f, 0f, 0f);
 
-			var facingRight = caster.GetComponent<PlatformerCharacter2D>().FacingRight();
+			var facingRight = caster.m_Character.FacingRight();
 			
 			if (facingRight) {
 				position.x = 1f;
 			}
 			else {
-				position.x = 2f;
+				position.x = -2f;
 			}
 
-			Debug.Log(position);
-			
-			shadowBox.transform.localPosition = position;
+			shadowBox.transform.position = transform.position + position;
 
-			// TODO: Transfer movement to box
+			var shadowBoxScript = shadowBox.GetComponent<ShadowBoxScript>();
+			shadowBoxScript.LinkTo(caster.gameObject, m_MaxDistance);
 		}
 		else if (isReleased) {
 			Reset();
 		}
 		else if (isHold) {
 			var validation = Input.GetButton(validationButtonName);
-
-			if (!validation) {
+			var shadowBoxScript = shadowBox.GetComponent<ShadowBoxScript>();
+			
+			if (!validation || !shadowBoxScript.isValid) {
 				return;
 			}
 
-			if (persistenBox) {
-				Destroy(persistenBox);
+			if (persistentBox) {
+				Destroy(persistentBox);
 			}
+
+			var particles = Instantiate(particlesModel, shadowBox.transform.position + shadowBoxScript.GetRelativeCenter(), Quaternion.identity);
+			var duration = particles.GetComponent<ParticleSystem>().main.duration;
 			
-			persistenBox = Instantiate(boxModel,
+			Destroy(particles, duration);
+
+			persistentBox = Instantiate(boxModel,
 									   shadowBox.transform.position,
 									   Quaternion.identity) as GameObject;
+
+			SetBoxGravity(false);
+			Invoke("MakeBoxFall", 0.75f);
 			
 			Reset();
 

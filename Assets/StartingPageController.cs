@@ -22,9 +22,9 @@ public class StartingPageController : MonoBehaviour {
 		
 	}
 
-    public void LoadMainScene()
+    public void LoadIntroScene()
     {
-        SceneManager.LoadScene("Main", LoadSceneMode.Single);
+        SceneManager.LoadScene("Intro", LoadSceneMode.Single);
 
     }
     public void LaunchSettings()
@@ -40,7 +40,6 @@ public class StartingPageController : MonoBehaviour {
         _settingsIsShown = false;
         SettingsMenuGameObject.SetActive(_settingsIsShown);
         StartMenuGameObject.SetActive(!_settingsIsShown);
-        UnityEngine.Debug.Log(SoundVolumeControl.MusicSoundLevel + " ; " + SoundVolumeControl.FxSoundLevel + " ; " + SoundVolumeControl.AnchorManSoundLevel);
 
     }
 }

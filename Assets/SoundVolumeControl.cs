@@ -1,39 +1,40 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SoundVolumeControl : MonoBehaviour
+namespace Assets
 {
-
-    public static double MusicSoundLevel = 0.5;
-    public static double FxSoundLevel = 0.5;
-    public static double AnchorManSoundLevel = 0.5;
-
-    public Slider MusicSoundSlider;
-    public Slider FxSoundSlider;
-    public Slider AnchorManSoundSlider;
-
-
-    public void SetMusicSoundLevel()
+    public class SoundVolumeControl : MonoBehaviour
     {
-        MusicSoundLevel = MusicSoundSlider.value;
+
+
+        public Slider MusicSoundSlider;
+        public Slider FxSoundSlider;
+        public Slider AnchorManSoundSlider;
+
+
+        public void SetMusicSoundLevel()
+        {
+            SettingsConstants.MusicSoundLevel = MusicSoundSlider.value;
+        }
+        public void SetFxSoundLevel()
+        {
+            SettingsConstants.FxSoundLevel = FxSoundSlider.value;
+        }
+        public void SetAnchorManSoundLevel()
+        {
+            SettingsConstants.AnchorManSoundLevel = AnchorManSoundSlider.value;
+        }
+        // Use this for initialization
+        void Start () {
+            MusicSoundSlider.value = SettingsConstants.MusicSoundLevel;
+            FxSoundSlider.value = SettingsConstants.FxSoundLevel;
+            AnchorManSoundSlider.value = SettingsConstants.AnchorManSoundLevel;
     }
-    public void SetFxSoundLevel()
-    {
-        FxSoundLevel = FxSoundSlider.value;
-    }
-    public void SetAnchorManSoundLevel()
-    {
-        AnchorManSoundLevel = AnchorManSoundSlider.value;
-    }
-    // Use this for initialization
-    void Start () {
-		
-	}
 	
-	// Update is called once per frame
-	void Update () {
+        // Update is called once per frame
+        void Update () {
 		
-	}
+        }
+    }
 }
