@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 513830627}
   - component: {fileID: 513830626}
   m_Layer: 5
-  m_Name: Text
+  m_Name: pressEnter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,8 +140,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 117.1, y: -46.6}
-  m_SizeDelta: {x: 234.3, y: 35.2}
+  m_AnchoredPosition: {x: 199.1, y: -129.6}
+  m_SizeDelta: {x: 398.2, y: 28}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &513830626
 MonoBehaviour:
@@ -164,10 +164,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -479,8 +479,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 110.600006, y: 65.2}
-  m_SizeDelta: {x: 221.2, y: 130.4}
+  m_AnchoredPosition: {x: 272.1, y: 42.3}
+  m_SizeDelta: {x: 544.1, y: 176.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1383634171
 MonoBehaviour:
@@ -503,10 +503,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -515,7 +515,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Bienvenue sur Banana TV!\n\nVous \xEAtes notre h\xE9ros du jour.\nNous
-    avons con\xE7u un terrain de jeu expr\xE8s pour vous .... "
+    avons con\xE7u un terrain de jeu expr\xE8s pour vous\n.... "
 --- !u!222 &1383634172
 CanvasRenderer:
   m_ObjectHideFlags: 0
