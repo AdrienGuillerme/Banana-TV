@@ -12,7 +12,12 @@ namespace UnityStandardAssets._2D
             if (other.tag == "Player")
             {
                 Time.timeScale = 0;
+               
                 DieMenu.SetActive(true);
+            }
+            if (other.tag == "Ennemy")
+            {
+                Destroy(other);
             }
         }
     }
