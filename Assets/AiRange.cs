@@ -42,57 +42,62 @@ public class AiRange : MonoBehaviour {
         target = GameObject.FindWithTag("Player").transform;
         Vector3 targetHeading = target.position - enemyTransform.position;
         Vector3 targetDirection = targetHeading.normalized;
-
-        if (Range < targetHeading.magnitude)
-        {
-            gameObject.GetComponent<Rigidbody2D>().velocity += new Vector2(targetDirection.x, targetDirection.y) * speed * Time.deltaTime;
-            Vector3 temp = enemyTransform.localScale;
-            if (targetHeading.x > 0)
-                temp.x = 1;
-            if (targetHeading.x < 0)
-                temp.x = -1;
-            enemyTransform.localScale = temp;
-        }
-        else if(_timeStamp <= Time.time) 
-        {
-            Debug.Log("shoot");
-            _timeStamp = Time.time + _cooldown;
-
-            Vector2 myPos = new Vector2(transform.position.x, transform.position.y);
-            Vector2 direction = Vector2.zero;
-
-            if (targetHeading.x > 0)
+        if (targetHeading.magnitude < detectionRange)
+        { 
+            if (Range < targetHeading.magnitude)
             {
-                direction = gameObject.transform.right;
+                gameObject.GetComponent<Rigidbody2D>().velocity +=
+                    new Vector2(targetDirection.x, targetDirection.y) * speed * Time.deltaTime;
+                Vector3 temp = enemyTransform.localScale;
+                if (targetHeading.x > 0)
+                    temp.x = 1;
+                if (targetHeading.x < 0)
+                    temp.x = -1;
+                enemyTransform.localScale = temp;
             }
-            else
+            else if (_timeStamp <= Time.time)
             {
-                direction = -gameObject.transform.right;
+                Debug.Log("shoot");
+                _timeStamp = Time.time + _cooldown;
+
+                Vector2 myPos = new Vector2(transform.position.x, transform.position.y);
+                Vector2 direction = Vector2.zero;
+
+                if (targetHeading.x > 0)
+                {
+                    direction = gameObject.transform.right;
+                }
+                else
+                {
+                    direction = -gameObject.transform.right;
+                }
+                direction.Normalize();
+                GameObject bullet = (GameObject) Instantiate(ProjectileModel, myPos, Quaternion.identity);
+                //spawning the bullet at position
+                var rigidBody = bullet.GetComponent<Rigidbody2D>();
+                Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), gameObject.GetComponent<BoxCollider2D>());
+                Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(),
+                    gameObject.GetComponent<CircleCollider2D>());
+                Destroy(bullet, 10);
+                rigidBody.AddForce(direction * (HowStrong + gameObject.GetComponent<Rigidbody2D>().velocity.magnitude),
+                    ForceMode2D.Force);
             }
-            direction.Normalize();
-            GameObject bullet = (GameObject)Instantiate(ProjectileModel, myPos, Quaternion.identity);
-            //spawning the bullet at position
-            var rigidBody = bullet.GetComponent<Rigidbody2D>();
-            Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), gameObject.GetComponent<BoxCollider2D>());
-            Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), gameObject.GetComponent<CircleCollider2D>());
-            Destroy(bullet, 10);
-            rigidBody.AddForce(direction * (HowStrong + gameObject.GetComponent<Rigidbody2D>().velocity.magnitude), ForceMode2D.Force);
-        }
-           
-        /** 
-        //rotate to look at the player
-            
+    }
+
+    /** 
+    //rotate to look at the player
+        
 
 
-        //move towards the player
-       // 
-     //   
+    //move towards the player
+   // 
+ //   
 
-        if (Vector3.Distance(transform.position, target.position) >= 150)
-        {
+    if (Vector3.Distance(transform.position, target.position) >= 150)
+    {
 
-        //      transform.position += transform.forward * 50 * Time.deltaTime;
+    //      transform.position += transform.forward * 50 * Time.deltaTime;
 
-        }**/
+    }**/
     }
 }

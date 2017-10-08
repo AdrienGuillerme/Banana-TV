@@ -35,15 +35,19 @@ public class AiBase : MonoBehaviour
         target = GameObject.FindWithTag("Player").transform;
         Vector3 targetHeading = target.position - enemyTransform.position;
         Vector3 targetDirection = targetHeading.normalized;
-     //   enemyTransform.transform.rotation = Quaternion.LookRotation(targetDirection); // Converts target direction vector to Quaternion
-     //  enemyTransform.transform.eulerAngles = new Vector3(0, 0,transform.eulerAngles.z);
-        gameObject.GetComponent<Rigidbody2D>().velocity += new Vector2(targetDirection.x, targetDirection.y) *speed* Time.deltaTime;
-        Vector3 temp = enemyTransform.localScale;
-        if (targetHeading.x > 0)         
-            temp.x = 1;      
-        if (targetHeading.x < 0)
-            temp.x = -1;
-        enemyTransform.localScale = temp;
+        //   enemyTransform.transform.rotation = Quaternion.LookRotation(targetDirection); // Converts target direction vector to Quaternion
+        //  enemyTransform.transform.eulerAngles = new Vector3(0, 0,transform.eulerAngles.z);
+        if (targetHeading.magnitude < detectionRange)
+        {
+            gameObject.GetComponent<Rigidbody2D>().velocity +=
+                new Vector2(targetDirection.x, targetDirection.y) * speed * Time.deltaTime;
+            Vector3 temp = enemyTransform.localScale;
+            if (targetHeading.x > 0)
+                temp.x = 1;
+            if (targetHeading.x < 0)
+                temp.x = -1;
+            enemyTransform.localScale = temp;
+        }
         /** 
         //rotate to look at the player
             

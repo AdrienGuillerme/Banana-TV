@@ -5,11 +5,19 @@ using UnityEngine;
 public class FallingPlatformBehaviourScript : MonoBehaviour {
 
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.tag == "Player")
+        var contact = other.contacts[0].normal;
+        if (other.gameObject.tag == "Player" && contact == new Vector2(0, -1))
         {
-            GetComponent<Rigidbody2D>().gravityScale = 7f;
+            Invoke("Fall",0.75F);
         }
+    }
+
+    void Fall()
+    {
+        Debug.Log("coucou   ");
+        GetComponent<Rigidbody2D>().isKinematic = false;
+        GetComponent<Rigidbody2D>().gravityScale = 9;
     }
 }
