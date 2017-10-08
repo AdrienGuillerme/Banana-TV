@@ -7,6 +7,7 @@ TagManager:
   - lazer
   - ray
   - Ennemy
+  - Elevator_Bound
   layers:
   - Default
   - TransparentFX
@@ -41,6 +42,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 645445979
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

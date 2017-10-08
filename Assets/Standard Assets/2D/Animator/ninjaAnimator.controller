@@ -5,7 +5,7 @@ AnimatorController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pirateAnimator
+  m_Name: ninjaAnimator
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: attack
@@ -49,9 +49,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.081894994
   m_TransitionOffset: 0
-  m_ExitTime: 0.75
+  m_ExitTime: 0.75000006
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -148,7 +148,7 @@ AnimatorState:
   m_SpeedParameterActive: 0
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 8d8b26ad9c9f9114cb35b34cf247d1ed, type: 2}
+  m_Motion: {fileID: 7400000, guid: 814b34058599d4444964786ce0017983, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: attack
@@ -172,7 +172,7 @@ AnimatorState:
   m_SpeedParameterActive: 0
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 344d24181df454d4bae8f8918d2b8b59, type: 2}
+  m_Motion: {fileID: 7400000, guid: 92cc98885910a9b49a3512a0d366d8a9, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -196,7 +196,7 @@ AnimatorState:
   m_SpeedParameterActive: 0
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: d99a0296f8eec624687f2eb1b0cdd10e, type: 2}
+  m_Motion: {fileID: 7400000, guid: b203f3081af51784ebfa54fde70eeefb, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

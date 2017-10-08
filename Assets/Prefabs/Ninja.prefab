@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 50330856737814876}
   - component: {fileID: 61978178087725666}
   - component: {fileID: 114560179220575148}
+  - component: {fileID: 95697442570888254}
   m_Layer: 0
   m_Name: Ninja
   m_TagString: Ennemy
@@ -80,7 +81,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1.44, y: 1.76}
-    newSize: {x: 2.5, y: 2.5}
+    newSize: {x: 1.44, y: 1.76}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -88,6 +89,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.6, y: 2}
   m_EdgeRadius: 0
+--- !u!95 &95697442570888254
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1376707018358714}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0d77105dd4aaab5469f619db18a34881, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114560179220575148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -102,7 +120,6 @@ MonoBehaviour:
   speed: 15
   rotationSpeed: 3
   detectionRange: 10
-  DieMenu: {fileID: 1239342884273804, guid: 51cc0f4e313646a4e9004d704f09787a, type: 2}
   Range: 5
   ProjectileModel: {fileID: 1291946386373216, guid: 6defb864c06f13b4299f726be0c4b298,
     type: 2}
@@ -144,7 +161,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.5, y: 2.5}
+  m_Size: {x: 1.44, y: 1.76}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
