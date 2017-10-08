@@ -9,17 +9,13 @@ public class BouttonBehaviourScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.tag == "Player")
-        {
+
             button.enabled = false;
-        }
     }
 
-    private void OnTriggerExit2D(Collider2D col)
+    void OnTriggerExit2D(Collider2D col)
     {
-        if (col.tag == "Player")
-        {
+
             button.enabled = true;
-        }
     }
 }
