@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AiRange : MonoBehaviour {
@@ -29,8 +30,10 @@ public class AiRange : MonoBehaviour {
     }
     void Start()
     {
-        //obtain the game object Transform
         enemyTransform = gameObject.GetComponent<Transform>();
+
+        DieMenu = GameObject.FindGameObjectWithTag("Respawn");
+        //obtain the game object Transform
     }
 
     void Update()
@@ -39,8 +42,7 @@ public class AiRange : MonoBehaviour {
         target = GameObject.FindWithTag("Player").transform;
         Vector3 targetHeading = target.position - enemyTransform.position;
         Vector3 targetDirection = targetHeading.normalized;
-        //   enemyTransform.transform.rotation = Quaternion.LookRotation(targetDirection); // Converts target direction vector to Quaternion
-        //  enemyTransform.transform.eulerAngles = new Vector3(0, 0,transform.eulerAngles.z);
+
         if (Range < targetHeading.magnitude)
         {
             gameObject.GetComponent<Rigidbody2D>().velocity += new Vector2(targetDirection.x, targetDirection.y) * speed * Time.deltaTime;
@@ -58,7 +60,6 @@ public class AiRange : MonoBehaviour {
             Vector2 myPos = new Vector2(transform.position.x, transform.position.y);
             Vector2 direction = Vector2.zero;
 
-
             if (targetHeading.x > 0)
             {
                 direction = gameObject.transform.right;
@@ -68,8 +69,7 @@ public class AiRange : MonoBehaviour {
                 direction = -gameObject.transform.right;
             }
             direction.Normalize();
-            Quaternion rotation = Quaternion.Euler(0, 0, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-            GameObject bullet = (GameObject)Instantiate(ProjectileModel, myPos, rotation);
+            GameObject bullet = (GameObject)Instantiate(ProjectileModel, myPos, Quaternion.identity);
             //spawning the bullet at position
             var rigidBody = bullet.GetComponent<Rigidbody2D>();
             Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), gameObject.GetComponent<BoxCollider2D>());

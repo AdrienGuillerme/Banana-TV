@@ -17,7 +17,7 @@ namespace UnityStandardAssets._2D
             }
             if (other.tag == "Ennemy")
             {
-                Destroy(other);
+               Destroy(other.gameObject);
             }
         }
     }

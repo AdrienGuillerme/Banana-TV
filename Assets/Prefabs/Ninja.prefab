@@ -102,7 +102,7 @@ MonoBehaviour:
   speed: 15
   rotationSpeed: 3
   detectionRange: 10
-  DieMenu: {fileID: 0}
+  DieMenu: {fileID: 1239342884273804, guid: 51cc0f4e313646a4e9004d704f09787a, type: 2}
   Range: 5
   ProjectileModel: {fileID: 1291946386373216, guid: 6defb864c06f13b4299f726be0c4b298,
     type: 2}

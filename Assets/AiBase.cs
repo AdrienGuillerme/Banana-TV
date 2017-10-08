@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AiBase : MonoBehaviour
@@ -25,6 +26,7 @@ public class AiBase : MonoBehaviour
     void Start()
     {
         //obtain the game object Transform
+        DieMenu = GameObject.FindGameObjectsWithTag("Respawn").First();
         enemyTransform = gameObject.GetComponent<Transform>();
     }   
 
