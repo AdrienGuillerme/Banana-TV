@@ -2319,6 +2319,16 @@ Prefab:
       propertyPath: m_LocalScale.x
       value: 0.11249951
       objectReference: {fileID: 0}
+    - target: {fileID: 114888656320244532, guid: f1d25c949af0bdb4085c9f848e7c2d75,
+        type: 2}
+      propertyPath: activatedObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 445264174}
+    - target: {fileID: 114052072919726152, guid: f1d25c949af0bdb4085c9f848e7c2d75,
+        type: 2}
+      propertyPath: offsetDelay
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0eb16b4b3e362ef4f97494dd0e686c46, type: 2}
   m_IsPrefabParent: 0
