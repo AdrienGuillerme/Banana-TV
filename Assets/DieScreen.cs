@@ -9,7 +9,7 @@ namespace Assets
         {
             Time.timeScale = 1; 
             gameObject.SetActive(false);
-            SceneManager.LoadScene(SceneManager.GetSceneAt(0).name);
+            SceneManager.LoadScene("Main", LoadSceneMode.Single);
         }
 
         public void Quit()

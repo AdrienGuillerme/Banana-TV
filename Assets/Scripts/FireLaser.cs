@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using UnityEngine.SceneManagement;
+    using Assets;
+    using UnityEngine.SceneManagement;
 
 
 // IMPORTANT: First child of this GameObject _must_ be the sprite to
@@ -48,22 +49,29 @@ public class FireLaser : MonoBehaviour
 		
 		float actualLength;
 
-		if (hit.collider) {
-			actualLength = Vector2.Distance(hit.point, position);
+        if (hit.collider)
+        {
+            actualLength = Vector2.Distance(hit.point, position);
 
-			collider = hit.collider.gameObject;
-		}
-		else {
-			actualLength = length;
-			
-			if (actualLength == 0) {
-				actualLength = maxLength;
-			}
+            collider = hit.collider.gameObject;
+            if (collider.tag == "Player")
+            {
+                SettingsConstants.DieMenu.SetActive(true);
+            }
+        }
+        else
+        {
+            actualLength = length;
 
-			collider = null;
-		}
+            if (actualLength == 0)
+            {
+                actualLength = maxLength;
+            }
 
-		Vector3 scale = transform.localScale;
+            collider = null;
+        }
+
+        Vector3 scale = transform.localScale;
 		scale.x = actualLength / defaultWidth;
 		scale.y = width;
 		
