@@ -11,6 +11,9 @@ public class AiBase : MonoBehaviour
     public float rotationSpeed = 3f;
     public float detectionRange = 10;
     public GameObject DieMenu;
+	private Animator m_Anim;// Reference to the player's animator component.
+
+	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 
     void OnCollisionEnter2D(Collision2D coll)
     {
@@ -26,6 +29,7 @@ public class AiBase : MonoBehaviour
     {
         //obtain the game object Transform
         enemyTransform = gameObject.GetComponent<Transform>();
+		m_Anim = GetComponent<Animator>();
     }   
 
     void Update()
@@ -38,11 +42,25 @@ public class AiBase : MonoBehaviour
      //  enemyTransform.transform.eulerAngles = new Vector3(0, 0,transform.eulerAngles.z);
         gameObject.GetComponent<Rigidbody2D>().velocity += new Vector2(targetDirection.x, targetDirection.y) *speed* Time.deltaTime;
         Vector3 temp = enemyTransform.localScale;
-        if (targetHeading.x > 0)         
-            temp.x = 1;      
-        if (targetHeading.x < 0)
-            temp.x = -1;
-        enemyTransform.localScale = temp;
+
+		//enable walk animation
+		if (targetHeading.x == 0)
+			m_Anim.SetBool("walk", false);
+		else 
+			m_Anim.SetBool("walk", true);
+		//
+		if (targetHeading.x > 0)
+			temp.x = 1;
+		else if (targetHeading.x < 0) 
+			temp.x = -1;
+		//Flip if needed
+		// If the input is moving the player right and the player is facing left...
+		if (temp.x > 0 && !m_FacingRight)
+			Flip();
+		// Otherwise if the input is moving the player left and the player is facing right...
+		else if (temp.x < 0 && m_FacingRight)
+			Flip();
+
         /** 
         //rotate to look at the player
             
@@ -59,6 +77,19 @@ public class AiBase : MonoBehaviour
 
         }**/
     }
+
+	private void Flip()
+	{
+		// Switch the way the player is labelled as facing.
+		m_FacingRight = !m_FacingRight;
+
+		// Multiply the enemy's x local scale by -1.
+		Vector3 theScale = transform.localScale;
+		theScale.x *= -1;
+		transform.localScale = theScale;
+	}
+
+
 }
 
 
