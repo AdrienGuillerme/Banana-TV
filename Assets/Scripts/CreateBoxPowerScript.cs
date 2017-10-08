@@ -40,7 +40,6 @@ public class CreateBoxPowerScript : MonoBehaviour {
 		caster.EnableMovement();
 
 		m_Anim.SetBool("CreateBox", false);
-		m_Anim.speed = 1;//animation speed was set to 0 to stop the animation at a specific sprite
 	}
 
 

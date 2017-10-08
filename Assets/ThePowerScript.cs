@@ -22,6 +22,7 @@ public class ThePowerScript : MonoBehaviour {
 
 	//var for the animation of the bullet
 	private Animator m_Anim;
+	private float _fireAnimationTime = 12f;
 
     // Use this for initialization
     void Start () {
@@ -69,15 +70,12 @@ public class ThePowerScript : MonoBehaviour {
         rigidBody.AddForce(direction*(totalForce + _caster.GetComponent<Rigidbody2D>().velocity.magnitude),ForceMode2D.Force);
 
 		_holdTimestamp = 0f;
-		m_Anim.SetBool("Fire", false);
     }
 	
     // Update is called once per frame      
     void Update () {
 		if (m_Anim.GetBool("Fire") ) {
-			if (_timeForShootingAnimation <= Time.time) {
-				m_Anim.SetBool ("Fire", false);
-			}
+			m_Anim.SetBool ("Fire", false);
 		}
         if (Input.GetButtonDown(_buttonName))
         {
@@ -85,8 +83,8 @@ public class ThePowerScript : MonoBehaviour {
         }
 		else if (Input.GetButtonUp(_buttonName)) {
 			if (_timeStamp <= Time.time) {
-				FireBullet ();
 				m_Anim.SetBool("Fire", true);
+				FireBullet ();
 			}
 		}
 	}
