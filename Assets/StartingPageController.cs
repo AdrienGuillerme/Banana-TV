@@ -10,14 +10,12 @@ public class StartingPageController : MonoBehaviour {
     public GameObject StartMenuGameObject; // Assign in inspector   
     private bool _settingsIsShown = false;
 
-
-
-    // Use this for initialization
-    void Start () { 
-		
-	}
+    void Start () {
+        _settingsIsShown = false;
+        SettingsMenuGameObject.SetActive(_settingsIsShown);
+        StartMenuGameObject.SetActive(!_settingsIsShown);
+    }
 	
-	// Update is called once per frame
 	void Update () {
 		
 	}
@@ -25,14 +23,13 @@ public class StartingPageController : MonoBehaviour {
     public void LoadIntroScene()
     {
         SceneManager.LoadScene("Intro", LoadSceneMode.Single);
-
     }
+
     public void LaunchSettings()
     {
         _settingsIsShown = true;
         SettingsMenuGameObject.SetActive(_settingsIsShown);
         StartMenuGameObject.SetActive(!_settingsIsShown);
-
     }
 
     public void QuitSettings()
@@ -40,6 +37,5 @@ public class StartingPageController : MonoBehaviour {
         _settingsIsShown = false;
         SettingsMenuGameObject.SetActive(_settingsIsShown);
         StartMenuGameObject.SetActive(!_settingsIsShown);
-
     }
 }
